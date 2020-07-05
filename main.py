@@ -3,17 +3,22 @@ import praw
 import requests
 import yaml
 import os
-import google.cloud.logging
 import logging
+import google.cloud.logging
+from google.cloud.logging.handlers import CloudLoggingHandler
+
 import urllib.parse
 from urllib.error import HTTPError, URLError
 from urllib.request import Request
 
-logging.basicConfig(level=logging.INFO)
 client = google.cloud.logging.Client()
-# Attaches a Google Stackdriver logging handler to the root logger
-client.get_default_handler()
-client.setup_logging(logging.INFO)
+handler = CloudLoggingHandler(client)
+cloud_logger = logging.getLogger('cloudLogger')
+cloud_logger.setLevel(logging.INFO) # defaults to WARN
+cloud_logger.addHandler(handler)
+cloud_logger.error('===================+++++++++++++++++  ')
+cloud_logger.error('===================+++++++++++++++++  bad news')
+cloud_logger.error('===================+++++++++++++++++  ')
 
 def authenticate():
     logging.info("_Authenticating... v0.9.0\n")
@@ -56,6 +61,12 @@ def is_link_valid(link):
 
 def is_comment_summoning(comment):
     body = str(comment.body)
+
+    # Debug code
+    id_matched = re.search("0122357063", re.IGNORECASE)
+    if id_matched:
+        return True
+
     rec_matched = re.search("rec", body, re.IGNORECASE)
     vreddit_matched = re.search("vredditdownloader", body, re.IGNORECASE)
     return (rec_matched or vreddit_matched) and len(body) <= 20
@@ -86,7 +97,7 @@ def run_bot():
                     try:
                         print("___Test: Записал")
                         # Reply to summoner with a link
-                        # comment.reply("[Записал на видеокассету](" + vid_link + ")")
+                        comment.reply(f"[Записал на видеокассету]({vid_link}) учитель {comment.author}. id={comment.id}")
                     except Exception as e:
                         print(e)
                 else:
