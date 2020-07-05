@@ -3,3 +3,4 @@ certifi
 requests
 praw
 PyYAML
+google-cloud-logging

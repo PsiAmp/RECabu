@@ -3,11 +3,17 @@ import praw
 import requests
 import yaml
 import os
+import google.cloud.logging
 import logging
 import urllib.parse
 from urllib.error import HTTPError, URLError
 from urllib.request import Request
 
+logging.basicConfig(level=logging.INFO)
+client = google.cloud.logging.Client()
+# Attaches a Google Stackdriver logging handler to the root logger
+client.get_default_handler()
+client.setup_logging(logging.INFO)
 
 def authenticate():
     logging.info("_Authenticating... v0.9.0\n")
@@ -88,6 +94,9 @@ def run_bot():
 
 
 if __name__ == '__main__':
+    logging.info("=-=-=-=-=-=-=-=+++++ INIT =-=-=-=-=-=-=-=+++++")
+    logging.error("=-=-=-=-=-=-=-=+++++ ERROR =-=-=-=-=-=-=-=+++++")
+    print("=-=-=-=-=-=-=-=+++++ PRINT TEST =-=-=-=-=-=-=-=+++++")
     config = load_configuration()
     reddit = authenticate()
     run_bot()
