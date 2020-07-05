@@ -10,7 +10,7 @@ from urllib.request import Request
 
 
 def authenticate():
-    logging.info("_Authenticating...\n")
+    logging.info("_Authenticating... v0.9.0\n")
     print('Authenticating...\n')
     authentication = praw.Reddit(site_name=config['BOT_NAME'], user_agent=config['USER_AGENT'])
     logging.info(f'_Authenticated as {authentication.user.me()}\n')
