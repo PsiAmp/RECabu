@@ -22,10 +22,8 @@ cloud_logger.error('===================+++++++++++++++++  ')
 
 def authenticate():
     logging.info("_Authenticating... v0.9.0\n")
-    print('Authenticating...\n')
     authentication = praw.Reddit(site_name=config['BOT_NAME'], user_agent=config['USER_AGENT'])
     logging.info(f'_Authenticated as {authentication.user.me()}\n')
-    print(f'Authenticated as {authentication.user.me()}\n')
     return authentication
 
 
@@ -107,7 +105,6 @@ def run_bot():
 if __name__ == '__main__':
     logging.info("=-=-=-=-=-=-=-=+++++ INIT =-=-=-=-=-=-=-=+++++")
     logging.error("=-=-=-=-=-=-=-=+++++ ERROR =-=-=-=-=-=-=-=+++++")
-    print("=-=-=-=-=-=-=-=+++++ PRINT TEST =-=-=-=-=-=-=-=+++++")
     config = load_configuration()
     reddit = authenticate()
     run_bot()
