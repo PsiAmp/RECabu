@@ -60,7 +60,7 @@ def is_comment_summoning(comment):
     body = str(comment.body)
 
     # Debug code
-    id_matched = re.search("0122357063", re.IGNORECASE)
+    id_matched = re.search("0122357063", body, re.IGNORECASE)
     if id_matched:
         return True
 
