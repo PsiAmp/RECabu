@@ -1,2 +1,3 @@
-BOT_NAME: 'recabu'
+[RECabu]
+BOT_NAME: 'RECabu'
 USER_AGENT: 'REDDIT_USER_AGENT'
