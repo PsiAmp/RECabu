@@ -5,7 +5,7 @@ from google.cloud.logging.handlers import CloudLoggingHandler
 client = google.cloud.logging.Client()
 handler = CloudLoggingHandler(client)
 log = logging.getLogger('cloudLogger')
-log.setLevel(logging.INFO) # defaults to WARN
+log.setLevel(logging.INFO)
 log.addHandler(handler)
 log.error('===================+++++++++++++++++  ')
 log.error('===================+++++++++++++++++  bad news')

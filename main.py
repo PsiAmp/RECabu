@@ -6,24 +6,23 @@ import os
 import logging
 import google.cloud.logging
 from google.cloud.logging.handlers import CloudLoggingHandler
-
 import urllib.parse
 from urllib.error import HTTPError, URLError
 from urllib.request import Request
 
+
+# Init logger that will be visible in Global scope
 client = google.cloud.logging.Client()
 handler = CloudLoggingHandler(client)
-cloud_logger = logging.getLogger('cloudLogger')
-cloud_logger.setLevel(logging.INFO) # defaults to WARN
-cloud_logger.addHandler(handler)
-cloud_logger.error('===================+++++++++++++++++  ')
-cloud_logger.error('===================+++++++++++++++++  bad news')
-cloud_logger.error('===================+++++++++++++++++  ')
+log = logging.getLogger('cloudLogger')
+log.setLevel(logging.INFO)
+log.addHandler(handler)
+
 
 def authenticate():
-    logging.info("_Authenticating... v0.9.0\n")
+    log.info("_Authenticating... v0.9.0\n")
     authentication = praw.Reddit(site_name=config['BOT_NAME'], user_agent=config['USER_AGENT'])
-    logging.info(f'_Authenticated as {authentication.user.me()}\n')
+    log.info(f'_Authenticated as {authentication.user.me()}\n')
     return authentication
 
 
@@ -80,31 +79,29 @@ def run_bot():
 
         # Check if comment is summoning RECabu bot
         if is_comment_summoning(comment):
-            print(f"Summonning comment: {comment.body}")
+            log.info(f"Summonning comment: {comment.body}")
 
             # Check if summoning comment belongs to a valid video submission
             if is_video_submission(comment):
-                print("Video submission is valid")
+                log.info("Video submission is valid")
 
                 # Get a video link from RedditTube
                 vid_link = upload_via_reddittube(f"https://www.reddit.com{comment.submission.permalink}")
 
                 # Check if a link is valid
                 if is_link_valid(vid_link):
-                    print(f"Video link from reddittube: {vid_link}")
+                    log.info(f"Video link from reddittube: {vid_link}")
                     try:
-                        print("___Test: Записал")
+                        log.info("___Test: Записал")
                         # Reply to summoner with a link
                         comment.reply(f"[Записал на видеокассету]({vid_link}) учитель {comment.author}. id={comment.id}")
                     except Exception as e:
-                        print(e)
+                        log.info(e)
                 else:
-                    print("not a valid link: " + vid_link)
+                    log.info("not a valid link: " + vid_link)
 
 
 if __name__ == '__main__':
-    logging.info("=-=-=-=-=-=-=-=+++++ INIT =-=-=-=-=-=-=-=+++++")
-    logging.error("=-=-=-=-=-=-=-=+++++ ERROR =-=-=-=-=-=-=-=+++++")
     config = load_configuration()
     reddit = authenticate()
     run_bot()
