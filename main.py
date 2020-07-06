@@ -81,7 +81,7 @@ def is_video_submission(comment):
 
 
 def run_bot():
-    subreddit = reddit.subreddit("GamingTrailers")
+    subreddit = reddit.subreddit("Pikabu")
     for comment in subreddit.stream.comments():
 
         # Check if comment is summoning RECabu bot
