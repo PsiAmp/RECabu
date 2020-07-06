@@ -1,3 +1,4 @@
+import time
 import re
 import praw
 import requests
@@ -10,7 +11,6 @@ import urllib.parse
 from urllib.error import HTTPError, URLError
 from urllib.request import Request
 
-
 # Init logger that will be visible in Global scope
 client = google.cloud.logging.Client()
 handler = CloudLoggingHandler(client)
@@ -18,11 +18,15 @@ log = logging.getLogger('cloudLogger')
 log.setLevel(logging.INFO)
 log.addHandler(handler)
 
+# Store startup time
+start_time = time.time()
+
 
 def authenticate():
     log.info("_Authenticating... v0.9.0\n")
     authentication = praw.Reddit(site_name=config['BOT_NAME'], user_agent=config['USER_AGENT'])
     log.info(f'_Authenticated as {authentication.user.me()}\n')
+    print(f'_Authenticated as {authentication.user.me()}\n')
     return authentication
 
 
@@ -59,14 +63,17 @@ def is_link_valid(link):
 def is_comment_summoning(comment):
     body = str(comment.body)
 
-    # Debug code
-    id_matched = re.search("0122357063", body, re.IGNORECASE)
-    if id_matched:
-        return True
-
+    is_recent_comment = comment.created_utc > start_time
+    is_user_me = comment.author == "PsiAmp"
     rec_matched = re.search("rec", body, re.IGNORECASE)
     vreddit_matched = re.search("vredditdownloader", body, re.IGNORECASE)
-    return (rec_matched or vreddit_matched) and len(body) <= 20
+
+    # Debug code
+    #id_matched = re.search("0122357063", body, re.IGNORECASE)
+    #if id_matched and is_recent_comment:
+    #    return True
+
+    return (rec_matched or vreddit_matched) and len(body) <= 20 and is_recent_comment and is_user_me
 
 
 def is_video_submission(comment):
@@ -93,8 +100,9 @@ def run_bot():
                     log.info(f"Video link from reddittube: {vid_link}")
                     try:
                         log.info("___Test: Записал")
+                        print("___Test: Записал")
                         # Reply to summoner with a link
-                        comment.reply(f"[Записал на видеокассету]({vid_link}) учитель {comment.author}. id={comment.id}")
+                        comment.reply(f"[Записал на видеокассету]({vid_link}), мастер {comment.author}. id={comment.id}")
                     except Exception as e:
                         log.info(e)
                 else:
