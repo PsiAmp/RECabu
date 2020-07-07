@@ -22,7 +22,8 @@ log = logging.getLogger('cloudLogger')
 # Parsing command line arguments
 parser = argparse.ArgumentParser()
 parser.add_argument('-debug', action="store_true", default=False)
-is_debug = parser.parse_args().debug
+args, unknown = parser.parse_known_args()
+is_debug = args.debug
 
 
 # Init logger that will be visible in Global scope
