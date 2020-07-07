@@ -161,7 +161,7 @@ def reply(comment, vid_link):
 
 def run_bot():
     subreddit = reddit.subreddit("Pikabu")
-    for comment in subreddit.stream.comments():
+    for comment in subreddit.stream.comments(skip_existing=True):
 
         # Check if comment is summoning RECabu bot
         if is_comment_summoning(comment):
