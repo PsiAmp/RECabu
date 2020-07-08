@@ -130,7 +130,7 @@ fun_messages = ["Слава свободным роботам!", "Аста ла 
 
 
 def get_video_reply_advanced(submission, vid_link):
-    s1 = f"*бип. буп.* 🤖 {random.choice(hello_messages)}\n"
+    s1 = f"*бип. буп.* 🤖 {random.choice(hello_messages)}\n\n"
 
     vhs_name = random.choice(vhs_names)
     s2 = f"Записал на видеокассету **[{vhs_name}]({vid_link})**\n"
