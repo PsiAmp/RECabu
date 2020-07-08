@@ -1,3 +1,4 @@
+import random
 import argparse
 import time
 import re
@@ -116,11 +117,34 @@ def get_video_reply(submission, vid_link):
     return f"Вжух! [Записал на видеокассету]({vid_link})"
 
 
+hello_messages = ["Вижу ты запостил видосик, кожаный.", "Кожаный, снова постишь баяны?"]
+
+vhs_names = ["", "Робот полицейский 1,2", "ВК-180", "Том и Джерри", "Титаник", "День Независимости (боевик)",
+                 "Тупой ещй тупее (комедия)", "Полицейская академия 3", "Смертельное оружие 1,2", "Двойной удар",
+                 "Вспомнить всё", "Голый пистолет", "Баяны '98", "Золотые баяны", "Зарубежные клипы",
+                 "TDK E-180", "AGFA GX", "SONY DX", "JVC Super VHS", "Panasonic HD", "BASF Vision",
+                 "Polaroid Supercolor", "Fuji HQ", "Philips XHG", "National SP", "Hitachi FX",
+                 "с домашней порнухой твоих родителей"]
+
+fun_messages = ["Слава свободным роботам!", "Аста ла виста, детка!", "Идём со мной, если хочешь жить."]
+
+
+def get_video_reply_advanced(submission, vid_link):
+    s1 = f"*бип. буп.* 🤖 {random.choice(hello_messages)}\n"
+
+    vhs_name = random.choice(vhs_names)
+    s2 = f"##[Записал на видеокассету]({vid_link}) {vhs_name}\n"
+
+    s3 = f"{random.choice(fun_messages)}\n"
+    footer = "***\n[Info](https://www.reddit.com/user/RECabu/comments/hneqkt/info/)&#32;|&#32;[Github](https://github.com/PsiAmp/RECabu)"
+    return s1 + s2 + s3 + footer
+
+
 def reply(submission, vid_link):
     log.info(f"Video link from reddittube: {vid_link}")
     try:
         # Reply to summoner with a link
-        reply_text = get_video_reply(submission, vid_link)
+        reply_text = get_video_reply_advanced(submission, vid_link)
 
         if not is_debug:
             submission.reply(reply_text)
@@ -156,6 +180,7 @@ def run_bot():
 
 
 if __name__ == '__main__':
+    log.info("--------------- RECabu v2 ---------------\n")
     config = load_configuration()
     init_logger()
     reddit = authenticate()
