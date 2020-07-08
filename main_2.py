@@ -180,8 +180,8 @@ def run_bot():
 
 
 if __name__ == '__main__':
-    log.info("--------------- RECabu v2 ---------------\n")
     config = load_configuration()
     init_logger()
+    log.info("--------------- RECabu v2 ---------------\n")
     reddit = authenticate()
     run_bot()
