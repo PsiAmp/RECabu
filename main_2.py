@@ -37,7 +37,7 @@ def init_logger():
 
 
 def authenticate():
-    log.info("_Authenticating... v0.9.0\n")
+    log.info("_Authenticating... v0.9.3\n")
     authentication = praw.Reddit(site_name=config['BOT_NAME'], user_agent=config['USER_AGENT'])
     log.info(f'_Authenticated as {authentication.user.me()}\n')
     print(f'_Authenticated as {authentication.user.me()}\n')
