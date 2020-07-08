@@ -136,7 +136,7 @@ def get_video_reply_advanced(submission, vid_link):
     s2 = f"##[Записал на видеокассету]({vid_link}) {vhs_name}\n"
 
     s3 = f"{random.choice(fun_messages)}\n"
-    footer = "***\n[Info](https://www.reddit.com/user/RECabu/comments/hneqkt/info/)&#32;|&#32;[Github](https://github.com/PsiAmp/RECabu)"
+    footer = "***\n^[Info](https://www.reddit.com/user/RECabu/comments/hneqkt/info/)&#32;|&#32;[Github](https://github.com/PsiAmp/RECabu)"
     return s1 + s2 + s3 + footer
 
 
