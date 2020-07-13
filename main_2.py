@@ -227,7 +227,7 @@ def process_message(message):
         try:
             badbot_msg = random.choice(badbot_messages)
             msg = f"{badbot_msg}\n\nОтписаться от бота: [Тыц!](https://bit.ly/J1oLIIapa)"
-            log.info(f"Badbot replied {msg}")
+            log.info(f"Badbot_replied: {msg}")
             message.reply(msg)
         except Exception as e:
             log.info(f"INBOX MSG ERROR: {e}")
@@ -236,7 +236,7 @@ def process_message(message):
     if goodbot_matched:
         try:
             goodbot_msg = random.choice(goodbot_messages)
-            log.info(f"Badbot replied {goodbot_msg}")
+            log.info(f"Goodbot_replied: {goodbot_msg}")
             message.reply(f"{goodbot_msg}")
         except Exception as e:
             log.info(f"INBOX MSG ERROR: {e}")
