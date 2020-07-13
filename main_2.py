@@ -223,7 +223,7 @@ def process_message(message):
         try:
             log.info(f"Badbot is bad to: {message.author}, msg: {message.body}")
             badbot_msg = random.choice(badbot_messages)
-            message.reply(f"{badbot_msg}\nОтписаться от бота: [Тыц!](https://bit.ly/J1oLIIapa)")
+            message.reply(f"{badbot_msg}\n\nОтписаться от бота: [Тыц!](https://bit.ly/J1oLIIapa)")
         except Exception as e:
             log.info(f"INBOX MSG ERROR: {e}")
 
