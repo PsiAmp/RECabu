@@ -216,22 +216,27 @@ goodbot_messages = ["Gооd Bоt предрекает кошельку твое�
 
 
 def process_message(message):
+    if not message.was_comment:
+        return
+
+    log.info(f"Bot replying to: {message.author}, msg: {message.body}")
     message.mark_read()
 
     badbot_matched = re.search("bad bot", message.body, re.IGNORECASE)
     if badbot_matched:
         try:
-            log.info(f"Badbot is bad to: {message.author}, msg: {message.body}")
             badbot_msg = random.choice(badbot_messages)
-            message.reply(f"{badbot_msg}\n\nОтписаться от бота: [Тыц!](https://bit.ly/J1oLIIapa)")
+            msg = f"{badbot_msg}\n\nОтписаться от бота: [Тыц!](https://bit.ly/J1oLIIapa)"
+            log.info(f"Badbot replied {msg}")
+            message.reply(msg)
         except Exception as e:
             log.info(f"INBOX MSG ERROR: {e}")
 
     goodbot_matched = re.search("good bot", message.body, re.IGNORECASE)
     if goodbot_matched:
         try:
-            log.info(f"Goodbot is good to: {message.author}, msg: {message.body}")
             goodbot_msg = random.choice(goodbot_messages)
+            log.info(f"Badbot replied {goodbot_msg}")
             message.reply(f"{goodbot_msg}")
         except Exception as e:
             log.info(f"INBOX MSG ERROR: {e}")
