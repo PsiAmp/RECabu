@@ -227,7 +227,7 @@ def process_message(message):
     if badbot_matched:
         try:
             badbot_msg = random.choice(badbot_messages)
-            msg = f"{badbot_msg}\n\nОтписаться от бота: [Тыц!](https://bit.ly/J1oLIIapa)"
+            msg = f"{badbot_msg}\n\nОтписаться от бота: [Тыц!](https://www.youtube.com/watch?v=dQw4w9WgXcQ)"
             log.info(f"Badbot_replied: {msg}")
             message.reply(msg)
         except Exception as e:
