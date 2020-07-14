@@ -198,9 +198,7 @@ def reply(submission, vid_link):
 
 
 def read_messagebox():
-    log.info("Reading inbox...")
     inbox = list(reddit.inbox.unread(limit=config['INBOX_LIMIT']))
-    log.info(f"Inbox has {len(inbox)} unread messages")
     inbox.reverse()
     for message in inbox:
         try:
