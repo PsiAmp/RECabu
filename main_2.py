@@ -52,13 +52,29 @@ def load_configuration():
     return configuration
 
 
-def upload_via_reddittube(link):
+def upload_reddittube_fast(link):
+    log.info("Linking directly to https://reddit.tube")
+    return link.replace(".com", ".tube")
+
+
+def upload_reddittube_slow(link):
     site_url = "https://reddit.tube/parse"
     response = requests.get(site_url, params={
         'url': link
     })
     response_json = response.json()
     return response_json['share_url']
+
+
+def upload_via_reddittube(link):
+    try:
+        uploaded_url = upload_reddittube_slow(link)
+        if is_link_valid(uploaded_url):
+            return uploaded_url
+    except Exception as e:
+        log.info(e)
+
+    return upload_reddittube_fast(link)
 
 
 def is_link_valid(link):
