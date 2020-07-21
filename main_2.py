@@ -38,10 +38,9 @@ def init_logger():
 
 
 def authenticate():
-    log.info("_Authenticating... v0.9.3\n")
+    log.info("_Authenticating...")
     authentication = praw.Reddit(site_name=config['BOT_NAME'], user_agent=config['USER_AGENT'])
-    log.info(f'_Authenticated as {authentication.user.me()}\n')
-    print(f'_Authenticated as {authentication.user.me()}\n')
+    log.info(f'_Authenticated as {authentication.user.me()}')
     return authentication
 
 
@@ -185,7 +184,7 @@ def run_bot():
 
         # Check if summoning comment belongs to a valid video submission
         if is_reddit_video_submission(submission):
-            log.info("Post is a Reddit video submission")
+            log.info(f"Post is a Reddit video submission: https://www.reddit.com{submission.permalink}")
 
             # Get a video link from RedditTube
             vid_link = upload_via_reddittube(f"https://www.reddit.com{submission.permalink}")
@@ -205,6 +204,6 @@ def run_bot():
 if __name__ == '__main__':
     config = load_configuration()
     init_logger()
-    log.info("--------------- RECabu_v2.1 ---------------\n")
+    log.info("--------------- RECabu_v2.1 ---------------")
     reddit = authenticate()
     run_bot()
