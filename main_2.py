@@ -153,7 +153,7 @@ vhs_names = ["Баяны", "Бегущий по лезвию бритвы", "Б�
 
 
 def get_video_reply_advanced(submission, vid_link):
-    s1 = f"^*бип. буп.*&#32;🤖&#32;\n\n"
+    s1 = f"^*бип.&#32;буп.*&#32;🤖&#32;\n\n"
 
     vhs_message = random.choice(vhs_messages)
     vhs_name = random.choice(vhs_names)
