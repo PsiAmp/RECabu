@@ -1,4 +1,3 @@
-import url_generator
 import random
 import argparse
 import time
@@ -164,7 +163,6 @@ def get_video_reply_advanced(submission, vid_link):
 
 
 def reply(submission, vid_link):
-    vid_link = url_generator.get_link(vid_link)
     log.info(f"Video link : {vid_link}")
     try:
         # Reply to submission
