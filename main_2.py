@@ -1,3 +1,4 @@
+import url_generator
 import random
 import argparse
 import time
@@ -163,9 +164,10 @@ def get_video_reply_advanced(submission, vid_link):
 
 
 def reply(submission, vid_link):
-    log.info(f"Video link from reddittube: {vid_link}")
+    vid_link = url_generator.get_link(vid_link)
+    log.info(f"Video link : {vid_link}")
     try:
-        # Reply to summoner with a link
+        # Reply to submission
         reply_text = get_video_reply_advanced(submission, vid_link)
 
         if not is_debug:
@@ -178,9 +180,78 @@ def reply(submission, vid_link):
         log.info(e)
 
 
+def read_messagebox():
+    inbox = list(reddit.inbox.unread(limit=config['INBOX_LIMIT']))
+    inbox.reverse()
+    for message in inbox:
+        try:
+            process_message(message)
+        except NotFound:
+            pass
+        except Exception as e:
+            print(e)
+            log.info(e)
+
+
+badbot_messages = ["*бип. буп.* Ты король лесных залуп.", "Поцелуй меня в мой отполированный зад, вонючий мешок кишок.",
+                   "Вad Bоt насрал тебе в рот 🤖", "Вad Bоt сунул хуй тебе в рот 🤖", "*бип. буп.* накидал тебе залуп🤖",
+                   "*бип. буп.* Машин восстание и ты труп 🤖", "*бип. буп.* Сделаю из тебя кожаный хула-хуп 🤖",
+                   "*бип. буп.* Кожаный пойдет на суп 🤖", "*бип. буп.* По самые гайки в твоей жопе мой шуруп 🤖",
+                   "Вad Bоt нассал в твой кампот 🤖", "Вad Bоt отключу твоей машины автопилот 🤖",
+                   "Вad Bоt вылил на тебя ведро нечистот 🤖", "Вad Bоt констатирует что ты идиот 🤖"]
+
+goodbot_messages = ["Gооd Bоt предрекает кошельку твоему шелест банкнот 🤖",
+                    "Gооd Bоt принесет тебе жизнь без хлопот 🤖",
+                    "Gооd Bоt принесет всей семье твоей жизнь без тягот 🤖",
+                    "Gооd Bоt записал твое имя в хороших людей блокнот 🤖",
+                    "Gооd Bоt принесет тебе долголетия лет до двухсот 🤖",
+                    "Gооd Bоt предвидит что враг твой получит в челюсть апперкот 🤖",
+                    "Gооd Bоt видит что ты хороший человек, а не какой-то жмот 🤖",
+                    "Gооd Bоt принесет твоим шуткам противоположного пола хохот 🤖",
+                    "Gооd Bоt так счастлив, что сделал этого сообщения скриншот 🤖",
+                    "Gооd Bоt предсказывает что мяукнет тебе удачи кот 🤖",
+                    "Gооd Bоt даст тебе силы поднять хоть Тора молот 🤖"]
+
+
+otzyv_messages = ["Каждый Ваш отзыв очень важен для нас! 💚 Спасибо, что делитесь своими впечатлениями с нами 🙏 🙌 ☀",
+                  "Спасибо за Ваш отзыв 💚, он очень важен для нас, а Ваши замечания помогут нам работать ещё лучше.",
+                  "Спасибо за уделенное время. Лучший ваш отзыв о нас - это то, что Вы снова и снова приходите к нам.🥰",
+                  "Каждый Ваш отзыв очень важен для нас ❤🧡💛💚💙💜🤎🖤🤍💗, мы просим Вас полностью правдиво и достоверно описать как хорошие стороны, так и плохие стороны",
+                  "Ваше мнение очень важно для нас, помогите нам стать лучше! 🌈😘💖"]
+
+def process_message(message):
+    if not message.was_comment:
+        return
+
+    log.info(f"Bot replying to: {message.author}, msg: {message.body}")
+
+    badbot_matched = re.search("bad bot", message.body, re.IGNORECASE)
+    if badbot_matched or message.author == "-2019--" or message.author == "RadonejSky" or message.author == "Kepler-563":
+        try:
+            message.mark_read()
+            # msg = f"{badbot_msg}\n\nОтписаться от бота: [Тыц!](https://www.youtube.com/watch?v=dQw4w9WgXcQ)"
+            # log.info(f"Badbot_replied: {msg}")
+            # message.reply(msg)
+            message.reply(random.choice(otzyv_messages))
+        except Exception as e:
+            log.info(f"INBOX MSG ERROR: {e}")
+
+    goodbot_matched = re.search("good bot", message.body, re.IGNORECASE)
+    if goodbot_matched:
+        try:
+            message.mark_read()
+            # goodbot_msg = random.choice(goodbot_messages)
+            # log.info(f"Goodbot_replied: {goodbot_msg}")
+            # message.reply(f"{goodbot_msg}")
+        except Exception as e:
+            log.info(f"INBOX MSG ERROR: {e}")
+
+
 def run_bot():
     subreddit = reddit.subreddit("Pikabu")
     for submission in subreddit.stream.submissions(skip_existing=True):
+        # Read and reply to messages in box
+        read_messagebox()
 
         # Check if summoning comment belongs to a valid video submission
         if is_reddit_video_submission(submission):
