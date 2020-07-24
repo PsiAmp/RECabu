@@ -221,7 +221,7 @@ def process_message(message):
     if not message.was_comment:
         return
 
-    log.info(f"Bot replying to: {message.author}, msg: {message.body}")
+    # log.info(f"Bot replying to: {message.author}, msg: {message.body}")
 
     badbot_matched = re.search("bad bot", message.body, re.IGNORECASE)
     if badbot_matched or message.author == "-2019--" or message.author == "RadonejSky" or message.author == "Kepler-563":
