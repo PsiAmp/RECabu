@@ -135,7 +135,7 @@ def get_video_reply_advanced(submission, vid_link):
     vhs_name = random.choice(strings.vhs_names)
     s2 = f"{vhs_message} **[{vhs_name}]({vid_link})**\n"
 
-    footer = "\n^[Info](https://www.reddit.com/user/RECabu/comments/hneqkt/info/)&#32;|&#32;[GitHub](https://github.com/PsiAmp/RECabu)[.]()"
+    footer = "\n^[Info](https://www.reddit.com/user/RECabu/comments/hneqkt/info/)&#32;|&#32;[GitHub](https://github.com/PsiAmp/RECabu)"
     return s2 + footer
 
 
@@ -175,13 +175,13 @@ def process_message(message):
     # log.info(f"Bot replying to: {message.author}, msg: {message.body}")
 
     badbot_matched = re.search("bad bot", message.body, re.IGNORECASE)
-    if badbot_matched or message.author == "-2019--" or message.author == "RadonejSky" or message.author == "Kepler-563":
+    if badbot_matched:
         try:
             message.mark_read()
             # msg = f"{badbot_msg}\n\nОтписаться от бота: [Тыц!](https://www.youtube.com/watch?v=dQw4w9WgXcQ)"
             # log.info(f"Badbot_replied: {msg}")
             # message.reply(msg)
-            message.reply(random.choice(strings.otzyv_messages))
+            # message.reply(random.choice(strings.otzyv_messages))
         except Exception as e:
             log.info(f"INBOX MSG ERROR: {e}")
 
