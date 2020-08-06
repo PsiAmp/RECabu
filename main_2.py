@@ -19,7 +19,7 @@ from urllib.request import Request
 start_time = time.time()
 
 # Is assigned to a platform logger
-log = logging.getLogger('cloudLogger')
+log = logging.getLogger('RECabu_logger')
 
 
 # Parsing command line arguments
