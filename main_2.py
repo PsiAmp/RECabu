@@ -198,7 +198,7 @@ def process_message(message):
 
 def run_bot():
     subreddit = reddit.subreddit("Pikabu")
-    for submission in subreddit.stream.submissions(skip_existing=True):
+    for submission in subreddit.stream.submissions():#skip_existing=True):
         # Read and reply to messages in box
         read_messagebox()
 
@@ -208,12 +208,8 @@ def run_bot():
 
             # Get a video link from RedditTube
             vid_link = upload_via_reddittube(f"https://www.reddit.com{submission.permalink}")
-
-            # Check if a link is valid
-            if is_link_valid(vid_link):
-                reply(submission, vid_link)
-            else:
-                log.info("not a valid link: " + vid_link)
+            # Post reply
+            reply(submission, vid_link)
         elif is_gfycat_video_submission(submission):
             log.info(f"Post is a GfyCat video submission: {submission.url}")
             gfy_vid_link = get_gfycat_video_link(submission.url)
