@@ -198,7 +198,7 @@ def process_message(message):
 
 def run_bot():
     subreddit = reddit.subreddit("Pikabu")
-    for submission in subreddit.stream.submissions():#skip_existing=True):
+    for submission in subreddit.stream.submissions(skip_existing=True):
         # Read and reply to messages in box
         read_messagebox()
 
