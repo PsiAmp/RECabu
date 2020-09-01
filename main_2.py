@@ -53,7 +53,7 @@ def load_configuration():
 
 
 def upload_reddittube_fast(link):
-    log.info("Linking directly to https://reddit.tube")
+    # log.info("Linking directly to https://reddit.tube")
     return link.replace(".com", ".tube")
 
 
@@ -111,7 +111,7 @@ def get_gfycat_video_link(url):
 
     if start and end:
         gfy_link = resp_text[start + len(prefix):end + len(suffix)]
-        log.info(f"Gfy link: {gfy_link}")
+        # log.info(f"Gfy link: {gfy_link}")
         # Validate link
         if gfy_link.startswith(prefix_link) and gfy_link.endswith(suffix):
             return gfy_link
@@ -140,7 +140,7 @@ def get_video_reply_advanced(submission, vid_link):
 
 
 def reply(submission, vid_link):
-    log.info(f"Video link : {vid_link}")
+    # log.info(f"Video link : {vid_link}")
     try:
         # Reply to submission
         reply_text = get_video_reply_advanced(submission, vid_link)
@@ -148,7 +148,7 @@ def reply(submission, vid_link):
         if not is_debug:
             submission.reply(reply_text)
 
-        log.info(f"Replied: {reply_text}")
+        # log.info(f"Replied: {reply_text}")
         if is_debug:
             print(f"Replied: {reply_text}")
     except Exception as e:
@@ -204,14 +204,14 @@ def run_bot():
 
         # Check if summoning comment belongs to a valid video submission
         if is_reddit_video_submission(submission):
-            log.info(f"Post is a Reddit video submission: https://www.reddit.com{submission.permalink}")
+            # log.info(f"Post is a Reddit video submission: https://www.reddit.com{submission.permalink}")
 
             # Get a video link from RedditTube
             vid_link = upload_via_reddittube(f"https://www.reddit.com{submission.permalink}")
             # Post reply
             reply(submission, vid_link)
         elif is_gfycat_video_submission(submission):
-            log.info(f"Post is a GfyCat video submission: {submission.url}")
+            # log.info(f"Post is a GfyCat video submission: {submission.url}")
             gfy_vid_link = get_gfycat_video_link(submission.url)
             if gfy_vid_link:
                 reply(submission, gfy_vid_link)
