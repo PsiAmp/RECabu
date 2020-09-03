@@ -67,12 +67,12 @@ def upload_reddittube_slow(link):
 
 
 def upload_via_reddittube(link):
-    try:
-        uploaded_url = upload_reddittube_slow(link)
-        if is_link_valid(uploaded_url):
-            return uploaded_url
-    except Exception as e:
-        log.info(e)
+    # try:
+    #     uploaded_url = upload_reddittube_slow(link)
+    #     if is_link_valid(uploaded_url):
+    #         return uploaded_url
+    # except Exception as e:
+    #     log.info(e)
 
     return upload_reddittube_fast(link)
 
