@@ -14,6 +14,8 @@ from google.cloud.logging.handlers import CloudLoggingHandler
 import urllib.parse
 from urllib.error import HTTPError, URLError
 from urllib.request import Request
+import datetime
+
 
 # Store startup time
 start_time = time.time()
@@ -130,6 +132,13 @@ def is_gfycat_video_submission(submission):
 
 def get_video_reply_advanced(submission, vid_link):
     s1 = f"^*бип.&#32;буп.*&#32;🤖\n\n"
+
+    today = datetime.datetime.now(datetime.timezone.utc)
+    d = today.strftime("%d")
+    m = today.strftime("%m")
+
+    if d == "01" and m == "04":
+        vid_link = "https://reddit.tube/d/Ygnwk5a"
 
     vhs_message = random.choice(strings.vhs_messages)
     vhs_name = random.choice(strings.vhs_names)
