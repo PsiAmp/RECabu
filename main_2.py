@@ -207,7 +207,7 @@ def run_bot():
             # log.info(f"Post is a Reddit video submission: https://www.reddit.com{submission.permalink}")
 
             # Get a video link from RedditTube
-            vid_link = upload_via_reddittube(f"https://www.reddit.com{submission.permalink}")
+            vid_link = upload_via_reddittube(f"https://www.reddit.com/r/Pikabu/comments/{submission.id}/")
             # Post reply
             reply(submission, vid_link)
         elif is_gfycat_video_submission(submission):
