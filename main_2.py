@@ -198,9 +198,20 @@ def process_message(message):
 
 def run_bot():
     subreddit = reddit.subreddit("Pikabu")
+    posted_submission_ids = set()
+
     for submission in subreddit.stream.submissions(skip_existing=True):
         # Read and reply to messages in box
         read_messagebox()
+
+        # Check if post is already submitted to avoid double comments in the same post that sometimes occur during
+        # Reddit servers disturbances
+        # Skip adding a reply if submission id is already in the set
+        if submission.id in posted_submission_ids:
+            continue
+
+        # Put submission id in the set
+        posted_submission_ids.add(submission.id)
 
         # Check if summoning comment belongs to a valid video submission
         if is_reddit_video_submission(submission):
