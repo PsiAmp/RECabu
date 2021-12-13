@@ -73,8 +73,12 @@ def upload_via_reddittube(link):
     #         return uploaded_url
     # except Exception as e:
     #     log.info(e)
-
     return upload_reddittube_fast(link)
+
+
+# Get a link to rediRECt
+def upload_via_redirect(post_id):
+    return f"http://ec2-3-142-73-12.us-east-2.compute.amazonaws.com:8090/recabu/{post_id}/"
 
 
 def is_link_valid(link):
@@ -219,6 +223,10 @@ def run_bot():
 
             # Get a video link from RedditTube
             vid_link = upload_via_reddittube(f"https://www.reddit.com/r/Pikabu/comments/{submission.id}/")
+
+            # Get a link to rediRECt
+            vid_link = upload_via_redirect(submission.id)
+
             # Post reply
             reply(submission, vid_link)
         elif is_gfycat_video_submission(submission):
