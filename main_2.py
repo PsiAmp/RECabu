@@ -252,6 +252,6 @@ def run_bot():
 if __name__ == '__main__':
     config = load_configuration()
     init_logger()
-    log.info("--------------- RECabu_v2.1 ---------------")
+    log.info("--------------- RECabu_v2.2 ---------------")
     reddit = authenticate()
     run_bot()
