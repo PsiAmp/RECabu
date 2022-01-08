@@ -78,20 +78,18 @@ def upload_via_reddittube(link):
 
 # Get a link to rediRECt
 def create_redirect_link(submission):
-    submission_id = submission.id
-    submission_title = submission.title
-    submission_created_utc = submission.created_utc
-    submission_is_nsfw = submission.over_18
-    submission_author = submission.author
-    submission_flair = submission.link_flair_text
+    params = {
+        'sid'     : submission.id,
+        'stitle'  : 'а ты уже представлял ?)',
+        'sutc'    : submission.created_utc,
+        'snsfw'   : submission.over_18,
+        'sauthor' : submission.author,
+        'sflair'  : submission.link_flair_text
+    }
+    # Encoding params to query friendly string
+    params_encoded = urllib.parse.urlencode(params)
 
-    return f"http://ec2-3-142-73-12.us-east-2.compute.amazonaws.com:8090/recabu/rec?" \
-           f"sid={submission_id}&" \
-           f"stitle={submission_title}&" \
-           f"sutc={submission_created_utc}&" \
-           f"snsfw={submission_is_nsfw}&" \
-           f"sauthor={submission_author}&" \
-           f"sflair={submission_flair}"
+    return f"http://ec2-3-142-73-12.us-east-2.compute.amazonaws.com:8090/recabu/rec?{params_encoded}"
 
 
 def is_link_valid(link):
