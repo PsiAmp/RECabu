@@ -80,7 +80,7 @@ def upload_via_reddittube(link):
 def create_redirect_link(submission):
     params = {
         'sid'     : submission.id,
-        'stitle'  : 'а ты уже представлял ?)',
+        'stitle'  : submission.title,
         'sutc'    : submission.created_utc,
         'snsfw'   : submission.over_18,
         'sauthor' : submission.author,
