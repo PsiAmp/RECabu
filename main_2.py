@@ -2,6 +2,7 @@ import strings.message_strings as strings
 import random
 import argparse
 import time
+import datetime
 import re
 import praw
 from prawcore import NotFound
@@ -81,7 +82,7 @@ def create_redirect_link(submission):
     params = {
         'sid'     : submission.id,
         'stitle'  : submission.title,
-        'sutc'    : submission.created_utc,
+        'sutc'    : datetime.datetime.utcfromtimestamp(submission.created_utc).isoformat(),
         'snsfw'   : submission.over_18,
         'sauthor' : submission.author,
         'sflair'  : submission.link_flair_text
