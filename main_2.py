@@ -90,7 +90,7 @@ def create_redirect_link(submission):
     # Encoding params to query friendly string
     params_encoded = urllib.parse.urlencode(params)
 
-    return f"http://ec2-3-142-73-12.us-east-2.compute.amazonaws.com:8090/recabu/rec?{params_encoded}"
+    return f"http://www.recabu.link:8090/recabu/rec?{params_encoded}"
 
 
 def is_link_valid(link):
