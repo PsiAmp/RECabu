@@ -93,6 +93,10 @@ def create_redirect_link(submission):
     return f"https://www.recabu.link/recabu/rec?{params_encoded}"
 
 
+def create_redditsave_link(link):
+    return f"https://redditsave.com/info?url={link}"
+
+
 def is_link_valid(link):
     # Check if download is valid without downloading
     if "reddit.tube" in link:
@@ -237,7 +241,10 @@ def run_bot():
             # vid_link = upload_via_reddittube(f"https://www.reddit.com/r/Pikabu/comments/{submission.id}/")
 
             # Get a link to rediRECt
-            vid_link = create_redirect_link(submission)
+            # vid_link = create_redirect_link(submission)
+
+            # Get a video link from RedditSave
+            vid_link = create_redditsave_link(f"https://www.reddit.com/r/Pikabu/comments/{submission.id}/")
 
             # Post reply
             reply(submission, vid_link)
